@@ -1,7 +1,11 @@
 <?php
 
-return [
+$db_config = get_db_config();
 
+return [
+    'fetch' => PDO::FETCH_CLASS,
+
+    'default' => $db_config['connection'],
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -13,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+//    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
