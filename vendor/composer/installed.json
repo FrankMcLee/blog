@@ -3435,5 +3435,47 @@
             "testing",
             "xunit"
         ]
+    },
+    {
+        "name": "caouecs/laravel-lang",
+        "version": "3.0.20",
+        "version_normalized": "3.0.20.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/caouecs/Laravel-lang.git",
+            "reference": "3cde9979e2bfeab6015d3e302fc27ebc222378a8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/3cde9979e2bfeab6015d3e302fc27ebc222378a8",
+            "reference": "3cde9979e2bfeab6015d3e302fc27ebc222378a8",
+            "shasum": ""
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^1.10"
+        },
+        "suggest": {
+            "overtrue/laravel-lang": "Command to add languages in your project"
+        },
+        "time": "2017-01-23T14:37:40+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "caouecs",
+                "email": "caouecs@caouecs.net"
+            }
+        ],
+        "description": "Languages for Laravel",
+        "keywords": [
+            "lang",
+            "languages",
+            "laravel",
+            "lpm"
+        ]
     }
 ]
