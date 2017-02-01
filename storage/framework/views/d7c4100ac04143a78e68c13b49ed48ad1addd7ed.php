@@ -14,5 +14,6 @@
         <?php echo $__env->make('layouts._footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </div>
 </div>
+<script src="/js/app.js"></script>
 </body>
 </html>

@@ -15,4 +15,15 @@ gulp.task('sass:watch', function () {
     gulp.watch('resources/assets/sass/**/*.scss', ['sass']);
 });
 
-gulp.task('default', [ 'sass:watch' ]);
+gulp.task('script', function(){
+    gulp.src('resources/assets/js/**/*.js') // 匹配 'client/js/somedir/somefile.js' 并且将 `base` 解析为 `client/js/`
+        .pipe(minify())
+        .pipe(gulp.dest('public/js'));  // 写入 'build/somedir/somefile.js'
+});
+
+gulp.task('script:watch', function() {
+   gulp.watch('resources/assets/js/**/*.js', ['script']);
+});
+
+
+gulp.task('default', [ 'sass:watch', 'script:watch']);
