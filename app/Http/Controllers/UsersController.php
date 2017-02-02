@@ -20,7 +20,9 @@ class UsersController extends Controller
             'only' => [
                 'update',
                 'edit',
-                'destroy'
+                'destroy',
+                'followings',
+                'followers'
             ]
         ]);
 
@@ -46,8 +48,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $statuses = $user->statuses()
-            ->orderBy('created_at', 'desc')
-            ->paginate(30);
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(30);
 
         return view('users.show', compact('user', 'statuses'));
     }
@@ -71,9 +73,26 @@ class UsersController extends Controller
         return redirect('/');
     }
 
+    protected function sendConfirmationEmailTo(User $user)
+    {
+        $view = 'emails.confirm';
+        $data = compact('user');
+        $from = 'mc.franklee@gmail.com';
+        $name = 'Frank Lee';
+        $to = $user->email;
+        $subject = '感谢注册 Blog 应用！请确认你的邮箱。';
+
+        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
+            $message->from($from, $name)
+                    ->to($to)
+                    ->subject($subject);
+        });
+    }
+
     public function confirmEmail($token)
     {
-        $user = User::where('activation_token', $token)->firstOrFail();
+        $user = User::where('activation_token', $token)
+                    ->firstOrFail();
 
         $user->activated = true;
         $user->activation_token = null;
@@ -84,6 +103,7 @@ class UsersController extends Controller
 
         return redirect()->route('users.show', [$user->id]);
     }
+
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -124,17 +144,23 @@ class UsersController extends Controller
         return back();
     }
 
-    protected function sendConfirmationEmailTo(User $user)
+    public function followings($id)
     {
-        $view = 'emails.confirm';
-        $data = compact('user');
-        $from = 'mc.franklee@gmail.com';
-        $name = 'Frank Lee';
-        $to = $user->email;
-        $subject = '感谢注册 Blog 应用！请确认你的邮箱。';
+        $users = User::findOrFail($id)
+                     ->followings()
+                     ->paginate(30);
+        $title = '关注的人';
 
-        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
-            $message->from($from, $name)->to($to)->subject($subject);
-        });
+        return view('users.show_follow', compact('users', 'title'));
+    }
+
+    public function followers($id)
+    {
+        $users = User::findOrFail($id)
+                     ->followers()
+                     ->paginate(30);
+        $title = '粉丝';
+
+        return view('users.show_follow', compact('users', 'title'));
     }
 }

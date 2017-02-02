@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -51,12 +52,49 @@ class User extends Authenticatable
 
     public function feed()
     {
-        return $this->statuses()
-                    ->orderBy('created_at', 'desc');
+        $userIds = Auth::user()->followings->pluck('id')->toArray();
+        $userIds[] = Auth::user()->id;
+
+        return Status::whereIn('user_id', $userIds)
+            ->with('user')
+            ->orderBy('created_at', 'desc');
     }
 
     public function statuses()
     {
         return $this->hasMany(Status::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    public function follow($userIds)
+    {
+        if (!is_array($userIds)) {
+            $userIds = compact('userIds');
+        }
+
+        return $this->followings()->sync($userIds, false);
+    }
+
+    public function unfollow($userIds)
+    {
+        if (!is_array($userIds)) {
+            $userIds = compact('userIds');
+        }
+
+        return $this->followings()->detach($userIds);
+    }
+
+    public function isFollowing($userId)
+    {
+        return $this->followings->contains($userId);
     }
 }
