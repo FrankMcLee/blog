@@ -13,7 +13,6 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
-    static $password;
     $date_time = $faker->date . ' ' . $faker->time;
 
     return [
@@ -23,6 +22,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
         'created_at' => $date_time,
         'updated_at' => $date_time,
-        'is_admin' => false
+        'is_admin' => false,
+        'activated' => true,
     ];
 });

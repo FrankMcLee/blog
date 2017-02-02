@@ -32,7 +32,7 @@
 
                 <hr>
 
-                <p>还没账号？<a href="{{ route('signup') }}">现在注册！</a></p>
+                <p>还没账号？<a href="{{ route('signup') }}">现在注册！</a><span class="pull-right">忘记密码？<a href="{{ route('password.reset') }}">找回密码</a></span></p>
             </div>
         </div>
     </div>

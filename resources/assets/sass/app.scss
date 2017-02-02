@@ -208,3 +208,7 @@ input {
   position: relative;
   right: 0;
 }
+
+.alert-status {
+  @extend .alert-info;
+}
