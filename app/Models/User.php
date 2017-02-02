@@ -28,6 +28,15 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->activation_token = str_random(30);
+        });
+    }
+
     public function gravatar($size = '100')
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
@@ -40,12 +49,14 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-    public static function boot()
+    public function feed()
     {
-        parent::boot();
+        return $this->statuses()
+                    ->orderBy('created_at', 'desc');
+    }
 
-        static::creating(function($user) {
-           $user->activation_token = str_random(30);
-        });
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
     }
 }

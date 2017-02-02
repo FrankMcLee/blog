@@ -26,3 +26,12 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'activated' => true,
     ];
 });
+
+$factory->define(\App\Models\Status::class, function (Faker\Generator $faker) {
+    $dateTime = $faker->date() . ' ' . $faker->time();
+    return [
+        'content' => $faker->text(),
+        'created_at' => $dateTime,
+        'updated_at' => $dateTime
+    ];
+});
