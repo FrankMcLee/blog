@@ -63,7 +63,7 @@ class UsersController extends Controller
         Auth::login($user);
         session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
 
-        return redirect()->route('users.show', [$user]);
+        return redirect()->route('users.show', [$user->id]);
     }
 
     public function edit($id)
@@ -84,7 +84,7 @@ class UsersController extends Controller
         ];
         $this->validate($request, $rule);
         $user = User::findOrFail($id);
-        $this->validate('update', $user);
+        $this->authorize('update', $user);
         $data = array_filter([
             'name' => $request->name,
             'password' => $request->password,

@@ -22,7 +22,7 @@ Route::get('/users/create', 'UsersController@create')->name('users.create');
 Route::post('/users', 'UsersController@store')->name('users.store');
 Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
 Route::patch('/users/{id}', 'UsersController@update')->name('users.update');
-Route::delete('/users/{id}', 'UsersController2destroy')->name('users.destroy');*/
+Route::delete('/users/{id}', 'UsersController@destroy')->name('users.destroy');*/
 
 Route::get('login', 'SessionsController@create')->name('login');
 Route::post('login', 'SessionsController@store')->name('login');
