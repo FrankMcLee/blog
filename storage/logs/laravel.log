@@ -1,0 +1,15 @@
+[2017-02-02 09:47:11] local.DEBUG: Message-ID: <f0f57946f1e67c05c48fc44699970507@swift.generated>
+Date: Thu, 02 Feb 2017 09:47:11 +0000
+Subject: Blog =?utf-8?Q?=E5=BA=94=E7=94=A8=E7=94=A8=E6=88=B7?=
+ =?utf-8?Q?=E5=AF=86=E7=A0=81=E6=89=BE=E5=9B=9E?=
+From: Frank Lee <franklee@blog.app>
+To: franklee@blog.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<p>点击下面链接重置密码：</p>
+
+<a href="http://blog.app/password/reset/Y6pHdlemEjBdcCG0WcguDDOn3pf90vWndPde5fFvAYsvBo7fOP">
+    http://blog.app/password/reset/Y6pHdlemEjBdcCG0WcguDDOn3pf90vWndPde5fFvAYsvBo7fOP
+</a>  

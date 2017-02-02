@@ -26,4 +26,13 @@ class PasswordReset extends Model
     protected $hidden = [
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($user) {
+            $user->created_at = date('Y-m-d H:i:s');
+            $user->token = str_random(50);
+        });
+    }
 }

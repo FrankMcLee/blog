@@ -44,8 +44,6 @@ class ForgotPasswordController extends Controller
         $user = User::where('email', $request->email)->firstOrFail();
         $data = [
             'email' => $request->email,
-            'token' => str_random(50),
-            'created_at' => date('Y-m-d H:i:s')
         ];
         $resetRecord = PasswordReset::create($data);
 
