@@ -149,9 +149,9 @@ class UsersController extends Controller
         $users = User::findOrFail($id)
                      ->followings()
                      ->paginate(30);
-        $title = '关注的人';
+        $follower = false;
 
-        return view('users.show_follow', compact('users', 'title'));
+        return view('users.show_follow', compact('users', 'follower'));
     }
 
     public function followers($id)
@@ -159,8 +159,8 @@ class UsersController extends Controller
         $users = User::findOrFail($id)
                      ->followers()
                      ->paginate(30);
-        $title = '粉丝';
+        $follower = true;
 
-        return view('users.show_follow', compact('users', 'title'));
+        return view('users.show_follow', compact('users', 'follower'));
     }
 }

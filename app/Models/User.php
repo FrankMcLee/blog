@@ -52,12 +52,13 @@ class User extends Authenticatable
 
     public function feed()
     {
-        $userIds = Auth::user()->followings->pluck('id')->toArray();
+        $userIds = Auth::user()->followings->pluck('id')
+                                           ->toArray();
         $userIds[] = Auth::user()->id;
 
         return Status::whereIn('user_id', $userIds)
-            ->with('user')
-            ->orderBy('created_at', 'desc');
+                     ->with('user')
+                     ->orderBy('created_at', 'desc');
     }
 
     public function statuses()
@@ -67,12 +68,10 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
-    }
-
-    public function followings()
-    {
-        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')
+                    ->withPivot('created_at')
+                    ->withPivot('updated_at');
+//                    ->withTimestamps();
     }
 
     public function follow($userIds)
@@ -81,7 +80,16 @@ class User extends Authenticatable
             $userIds = compact('userIds');
         }
 
-        return $this->followings()->sync($userIds, false);
+        return $this->followings()
+                    ->sync($userIds, false);
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id')
+                    ->withPivot('created_at')
+                    ->withPivot('updated_at');
+//                    ->withTimestamps();
     }
 
     public function unfollow($userIds)
@@ -90,7 +98,8 @@ class User extends Authenticatable
             $userIds = compact('userIds');
         }
 
-        return $this->followings()->detach($userIds);
+        return $this->followings()
+                    ->detach($userIds);
     }
 
     public function isFollowing($userId)
